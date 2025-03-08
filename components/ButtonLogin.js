@@ -1,8 +1,11 @@
 import Link from "next/link";
 
-const ButtonLogin = ({ isLoggedIn, name }) => {
+const ButtonLogin = ({ isLoggedIn, name, extraStyles }) => {
   return isLoggedIn ? (
-    <Link href="dashboard" className="btn btn-primary">
+    <Link
+      href="dashboard"
+      className={`btn btn-primary ${extraStyles ? extraStyles : ""}`}
+    >
       Welcome back {name}
     </Link>
   ) : (
