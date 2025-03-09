@@ -1,8 +1,8 @@
-import ButtonLogin from "@/components/ButtonLogin";
-import PriceBenefitsItem from "@/components/priceBenefitsItem";
-import FAQListItem from "@/components/FAQListItem";
+import ButtonLogin from "@/components/button-login";
+import PriceBenefitsItem from "@/components/price-benefits-item";
+import FAQListItem from "@/components/faq-list-item";
 import Image from "next/image";
-import productDemo from "./productDemo.jpeg";
+import productDemo from "./product-demo.jpeg";
 
 export default function Home() {
   const isLoggedIn = true;
