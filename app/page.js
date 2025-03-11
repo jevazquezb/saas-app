@@ -3,13 +3,11 @@ import PriceBenefitsItem from "@/components/price-benefits-item";
 import FAQListItem from "@/components/faq-list-item";
 import Image from "next/image";
 import productDemo from "./product-demo.jpeg";
+import { auth } from "@/auth";
 
-export default function Home() {
-  const isLoggedIn = true;
-  const name = "Jesus";
-
-  const greeting = `Hello, ${isLoggedIn ? name : "there"}!`;
-  console.log(greeting);
+export default async function Home() {
+  const session = await auth();
+  console.log(session);
 
   const priceBenefits = [
     "Collect customer feedback",
@@ -18,12 +16,18 @@ export default function Home() {
     "24/7 support",
   ];
 
+  const faq = [
+    { question: "What do I get exactly?", answer: "Loreum Ipseum" },
+    { question: "Can I get a refund?", answer: "Loreum Ipseum" },
+    { question: "I have another question", answer: "Loreum Ipseum" },
+  ];
+
   return (
     <main>
       {/* HEADER SECTION */}
       <header className="bg-base-200">
         <div className="max-w-5xl mx-auto flex justify-between items-center px-8 py-2">
-          <div className="font-bold">My app</div>
+          <div className="font-bold">Saas JAVB</div>
           <div className="space-x-4 max-md:hidden">
             <a className="link link-hover" href="#pricing">
               Pricing
@@ -33,7 +37,7 @@ export default function Home() {
             </a>
           </div>
           <div>
-            <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
+            <ButtonLogin session={session} />
           </div>
         </div>
       </header>
@@ -52,7 +56,7 @@ export default function Home() {
             Create a feedback board in minutes, prioritize features, and build
             products your customers will love.
           </div>
-          <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
+          <ButtonLogin session={session} />
         </div>
       </section>
       {/* PRICING SECTION */}
@@ -77,11 +81,7 @@ export default function Home() {
                 <PriceBenefitsItem key={benefit}>{benefit}</PriceBenefitsItem>
               ))}
             </ul>
-            <ButtonLogin
-              isLoggedIn={isLoggedIn}
-              name={name}
-              extraStyles="w-full"
-            />
+            <ButtonLogin session={session} extraStyles="w-full" />
           </div>
         </div>
       </section>
@@ -95,12 +95,8 @@ export default function Home() {
             Frequently Asked Questions
           </h2>
           <ul className="max-w-lg mx-auto">
-            {[
-              { question: "What do I get exactly?", answer: "Loreum Ipseum" },
-              { question: "Can I get a refund?", answer: "Loreum Ipseum" },
-              { question: "I have another question", answer: "Loreum Ipseum" },
-            ].map((qa) => (
-              <FAQListItem key="qa.question" qa={qa} />
+            {faq.map((qa) => (
+              <FAQListItem key={`${qa.question}`} qa={qa} />
             ))}
           </ul>
         </div>
