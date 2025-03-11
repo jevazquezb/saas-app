@@ -11,7 +11,7 @@ const ButtonLogin = ({ session, extraStyles }) => {
       href={dashboardUrl}
       className={`btn btn-primary ${extraStyles ? extraStyles : ""}`}
     >
-      Welcome back {session.user.name.split(" ")[0] || "you!"}
+      Welcome back {session.user.name?.split(" ")[0] || "you!"}
     </Link>
   ) : (
     <button
