@@ -18,23 +18,29 @@ const FormNewBoard = () => {
     setIsLoading(true);
 
     try {
-      // const response = await fetch("/api/board", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     name,
-      //   }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
+      /**
+       * axios function does the same as the following in one step:
+       *
+       * const response = await fetch("/api/board", {
+       *  method: "POST",
+       *  body: JSON.stringify({
+       *    name,
+       *  }),
+       *  headers: {
+       *    "Content-Type": "application/json",
+       *  },
+       * });
+       *
+       * const data = await response.json();
+       */
 
-      // const data = await response.json();
       const data = await axios.post("/api/board", { name });
 
       setName("");
       toast.success("Board created!");
       router.refresh();
     } catch (error) {
+      // 'response' object in error comes from the axios response
       const errorMessage =
         error.response?.data?.error || error.message || "Something went wrong";
       toast.error(errorMessage);
