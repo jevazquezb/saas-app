@@ -61,7 +61,7 @@ const FormNewBoard = () => {
         </div>
         <input
           type="text"
-          placeholder="Type here youu"
+          placeholder="Type here your board name"
           className="input input-bordered w-full"
           value={name}
           onChange={(event) => setName(event.target.value)}
