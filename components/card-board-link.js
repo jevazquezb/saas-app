@@ -15,7 +15,7 @@ const CardBoardLink = ({ boardId }) => {
   };
 
   return (
-    <div className="bg-base-100 rounded-2xl text-sm px-4 py-2.5 flex items-center max-w-lg justify-between">
+    <div className="bg-base-100 rounded-2xl text-sm px-4 py-2.5 flex items-center max-w-sm justify-between">
       <p className="truncate">{boardLink}</p>
       <button className="btn btn-sm btn-neutral btn-square" onClick={copyLink}>
         <svg
