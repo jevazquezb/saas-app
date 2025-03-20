@@ -1,12 +1,14 @@
 import connectMongo from "@/libs/mongoose";
 import Board from "@/models/board";
+import Post from "@/models/post";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import CardBoardLink from "@/components/card-board-link";
 import ButtonDeleteBoard from "@/components/button-delete-board";
+import CardPostAdmin from "@/components/card-post-admin";
 
-const getBoard = async (boardId) => {
+const getData = async (boardId) => {
   const session = await auth();
   await connectMongo();
 
@@ -19,12 +21,15 @@ const getBoard = async (boardId) => {
     redirect("/dashboard");
   }
 
-  return board;
+  const posts = await Post.find({ boardId }).sort({ createdAt: -1 });
+
+  return { board, posts };
 };
 
 export default async function FeedbackBoard({ params }) {
   const { id } = params;
-  const board = await getBoard(id);
+  const { board, posts } = await getData(id);
+
   return (
     <main className="bg-base-200 min-h-screen">
       {/* HEADER */}
@@ -47,10 +52,17 @@ export default async function FeedbackBoard({ params }) {
           </Link>
         </div>
       </section>
-      <section className="max-w-5xl mx-auto px-5 py-12 space-x-12">
-        <h1 className="font-extrabold text-xl mb-4">{board.name}</h1>
-        <CardBoardLink boardId={`${board._id}`} />
-        <ButtonDeleteBoard boardId={`${board._id}`} />
+      <section className="max-w-5xl mx-auto px-5 py-12 flex flex-col md:flex-row gap-12">
+        <div className="space-y-8">
+          <h1 className="font-extrabold text-xl mb-4">{board.name}</h1>
+          <CardBoardLink boardId={`${board._id}`} />
+          <ButtonDeleteBoard boardId={`${board._id}`} />
+        </div>
+        <ul className="space-y-4 flex-grow">
+          {posts.map((post) => (
+            <CardPostAdmin key={post._id} post={post} />
+          ))}
+        </ul>
       </section>
     </main>
   );
