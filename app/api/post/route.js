@@ -1,5 +1,3 @@
-// An API endpoint to create a new Post document in the database. The route is not protected by the auth middleware, so anyone can create a new post. The route expects a POST request with a title and description in the request body. The boardId is in the query parameters. The userId is not required, as it is optional and will be set to the user's ID if they are logged in.
-
 import { NextResponse } from "next/server";
 import connectMongo from "@/libs/mongoose";
 import Board from "@/models/board";
