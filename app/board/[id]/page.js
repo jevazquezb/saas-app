@@ -9,7 +9,7 @@ const getData = async (boardId) => {
   await connectMongo();
 
   const board = await Board.findById(boardId);
-  const posts = await Post.find({ boardId }).sort({ createdAt: -1 }); // 1 or -1. -1 orders by the most recent post
+  const posts = await Post.find({ boardId }).sort({ votesCounter: -1 }); // 1 or -1. -1 orders by the most recent post
 
   if (!board) {
     redirect("/");
@@ -32,7 +32,7 @@ export default async function PublicFeedbackBoard({ params }) {
         <FormAddPost boardId={id} />
         <ul className="space-y-4 flex-grow">
           {posts.map((post) => (
-            <CardPost key={post._id} post={post} />
+            <CardPost key={`${post._id}`} post={post} />
           ))}
         </ul>
       </section>
