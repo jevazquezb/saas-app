@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const ButtonDeletePost = ({ postId }) => {
+  const localStorageKeyName = `saasjavb-hasVoted-${postId}`;
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,6 +21,9 @@ const ButtonDeletePost = ({ postId }) => {
         setIsLoading(true);
 
         await axios.delete(`/api/post?postId=${postId}`);
+
+        // Delete the 'hasVoted' value from localStorage if it exists
+        localStorage.removeItem(localStorageKeyName);
 
         toast.success("Post successfully deleted!");
 
