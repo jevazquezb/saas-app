@@ -2,13 +2,11 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const ButtonVote = ({ postId, initialVotes }) => {
+const ButtonVote = ({ postId, initialVotes, onVoteChange }) => {
   const localStorageKeyName = `saasjavb-hasVoted-${postId}`;
 
-  const router = useRouter();
   const [hasVoted, setHasVoted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [votesCounter, setVotesCounter] = useState(initialVotes);
@@ -35,7 +33,7 @@ const ButtonVote = ({ postId, initialVotes }) => {
         localStorage.setItem(localStorageKeyName, "true");
       }
 
-      router.refresh();
+      onVoteChange();
     } catch (error) {
       const errorMessage =
         error.response?.data?.error || error.message || "Something went wrong";

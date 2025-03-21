@@ -1,6 +1,6 @@
 import ButtonVote from "./button-vote";
 
-const CardPost = ({ post }) => {
+const CardPost = ({ post, onVoteChange }) => {
   return (
     <li className="bg-base-100 rounded-3xl p-6 flex justify-between items-start gap-3">
       <div>
@@ -11,7 +11,11 @@ const CardPost = ({ post }) => {
           </p>
         )}
       </div>
-      <ButtonVote postId={`${post._id}`} initialVotes={post.votesCounter} />
+      <ButtonVote
+        postId={post._id}
+        initialVotes={post.votesCounter}
+        onVoteChange={onVoteChange}
+      />
     </li>
   );
 };
