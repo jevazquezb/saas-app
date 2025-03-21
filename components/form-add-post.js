@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const FormAddPost = ({ boardId }) => {
-  const router = useRouter();
+const FormAddPost = ({ boardId, onPostAdded }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -27,7 +24,7 @@ const FormAddPost = ({ boardId }) => {
 
       toast.success("Post added!");
 
-      router.refresh();
+      onPostAdded();
     } catch (error) {
       // 'response' object in error comes from the axios response
       const errorMessage =
